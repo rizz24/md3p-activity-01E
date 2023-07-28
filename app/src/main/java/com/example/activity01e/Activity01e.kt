@@ -1,31 +1,65 @@
 package com.example.activity01e
 
+import java.util.Scanner
+
 fun main() {
-    // Array example
-    val arrayExample: Array<Int> = arrayOf(1, 2, 3, 4, 5)
-    println("Array example:")
-    arrayExample.forEach { print("$it ") }
-    println()
+    val scanner = Scanner(System.`in`)
+    val itemsArray = ArrayList<String>()
 
-    // ArrayList example
-    val arrayListExample: ArrayList<String> = ArrayList()
-    arrayListExample.add("apple")
-    arrayListExample.add("banana")
-    arrayListExample.add("orange")
-    println("\nArrayList example:")
-    arrayListExample.forEach { println(it) }
+    while (true) {
+        println("Choose an option:")
+        println("1. Add item")
+        println("2. Edit item")
+        println("3. Remove item")
+        println("4. Exit")
+        print("Enter your choice: ")
 
-    // Set example
-    val setExample: Set<String> = setOf("apple", "banana", "orange")
-    println("\nSet example:")
-    setExample.forEach { println(it) }
+        when (scanner.nextInt()) {
+            1 -> {
+                print("\nEnter the item to add: ")
+                val newItem = scanner.next()
+                itemsArray.add(newItem)
+                println("$newItem added to the array.\n")
+            }
+            2 -> {
+                if (itemsArray.isEmpty()) {
+                    println("The array is empty. Nothing to edit.\n")
+                } else {
+                    print("\nEnter the index of the item to edit: ")
+                    val index = scanner.nextInt()
 
-    // Map example
-    val mapExample: Map<String, Int> = mapOf(
-        "apple" to 1,
-        "banana" to 2,
-        "orange" to 3
-    )
-    println("\nMap example:")
-    mapExample.forEach { (key, value) -> println("$key -> $value") }
+                    if (index in 0 until itemsArray.size) {
+                        print("\nEnter the new item: ")
+                        val newItem = scanner.next()
+                        itemsArray[index] = newItem
+                        println("Item at index $index updated.\n")
+                    } else {
+                        println("Invalid index. Please enter a valid index.\n")
+                    }
+                }
+            }
+            3 -> {
+                if (itemsArray.isEmpty()) {
+                    println("The array is empty. Nothing to remove.\n")
+                } else {
+                    print("\nEnter the index of the item to remove: ")
+                    val index = scanner.nextInt()
+
+                    if (index in 0 until itemsArray.size) {
+                        val removedItem = itemsArray.removeAt(index)
+                        println("Item \"$removedItem\" removed from the array.\n")
+                    } else {
+                        println("Invalid index. Please enter a valid index.\n")
+                    }
+                }
+            }
+            4 -> {
+                println("Exiting the program.")
+                return
+            }
+            else -> println("Invalid choice. Please enter a valid option.")
+        }
+
+        println("Current items in the array: $itemsArray\n")
+    }
 }
